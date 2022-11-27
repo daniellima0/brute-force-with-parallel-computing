@@ -32,11 +32,6 @@ int main(int argc, char **argv) {
 
     unsigned int numberOfCharacters = my_strlen(password);
 
-    cudaDeviceProp deviceProp;
-    cudaGetDeviceProperties(&deviceProp, 0);  // 0-th device
-    printf("numero de multiprocessadores: %d\n", deviceProp.multiProcessorCount);
-    printf("numero de threads por bloco: %d\n", deviceProp.maxThreadsPerMultiProcessor);
-
     cudaEvent_t start, stop;
     cudaEventCreate(&start);
     cudaEventCreate(&stop);
