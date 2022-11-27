@@ -1,7 +1,5 @@
 // MPI
 
-// MPI
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -91,10 +89,9 @@ void bruteForce(char *pass) {
 
                     dif = t2 - t1;
 
-                    MPI_Finalize();
-
                     printf("\n%1.2f seconds\n", dif);
                     MPI_Abort(MPI_COMM_WORLD, 1);
+                    MPI_Finalize();
                 }
             }
         }

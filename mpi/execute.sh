@@ -9,4 +9,4 @@
 
 module load gcc/11.1.0 
 
-./sequential zzzzz
+mpirun -np 1 --allow-run-as-root --oversubscribe ./mpi zzzzz

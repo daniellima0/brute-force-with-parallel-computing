@@ -9,4 +9,4 @@
 
 module load gcc/11.1.0 
 
-./sequential zzzzz
+./openmp zzzzz 1

@@ -9,4 +9,4 @@
 
 module load gcc/11.1.0 
 
-./sequential zzzzz
+OMP_NUM_THREADS=1 mpirun -np 1 --allow-run-as-root --oversubscribe ./hybrid zzzzz
