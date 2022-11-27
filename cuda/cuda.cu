@@ -25,8 +25,11 @@ int main(int argc, char **argv) {
     cudaMallocManaged(&password, size);
     strcpy(password, argv[1]);
 
-    size_t threadsPerBlock = 1024;
-    size_t numberOfBlocks = 40;
+    cudaDeviceProp deviceProp;
+    cudaGetDeviceProperties(&deviceProp, 0);  // 0-th device
+
+    size_t threadsPerBlock = deviceProp.maxThreadsPerBlock;
+    size_t numberOfBlocks = deviceProp.multiProcessorCount;
 
     printf("Estamos tentando quebrar: %s\n", password);
 
@@ -39,12 +42,12 @@ int main(int argc, char **argv) {
     cudaEventRecord(start);
     bruteForce<<<numberOfBlocks, threadsPerBlock>>>(password, numberOfCharacters);
     cudaEventRecord(stop);
-
+    
     cudaEventSynchronize(stop);
     float milliseconds = 0;
     cudaEventElapsedTime(&milliseconds, start, stop);
 
-    printf("\n%1.2f seconds\n", milliseconds / 1000);
+    printf("\n%1.2f seconds\n", milliseconds/1000);
 
     return 0;
 }
@@ -79,8 +82,8 @@ __global__ void bruteForce(char *pass, unsigned int size) {
             s[index] = '\0';
             printf("Password encontrado: %s\n", s);
             break;
-        } else if (j > pass_decimal) {
-            break;
+        } else if (j > pass_decimal){
+          break;
         }
     }
 }

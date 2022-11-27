@@ -55,8 +55,13 @@ void bruteForce(char *pass) {
 
     long long int max = my_pow(base, 9);
     char s[10];
-#pragma omp parallel for private(j)
+
+    int flag = 0;
+#pragma omp parallel for private(j) shared(flag)
     for (j = 0; j < max; j++) {
+        if (flag == 1) {
+            exit(1);
+        }
         if (j == pass_decimal) {
             printf("Encontrou o password!\n");
             int index = 0;
@@ -71,6 +76,7 @@ void bruteForce(char *pass) {
             t2 = omp_get_wtime();
             dif = t2 - t1;
             printf("\n%1.2lf seconds\n", dif);
+            flag = 1;
             exit(1);
         }
     }

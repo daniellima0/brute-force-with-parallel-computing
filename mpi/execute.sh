@@ -8,5 +8,6 @@
 #SBATCH --account=treinamento                   # Account of the group 
 
 module load gcc/11.1.0 
+module load openmpi/4.0.2
 
 mpirun -np 1 --allow-run-as-root --oversubscribe ./mpi zzzzz
