@@ -9,7 +9,7 @@
 // 97 to 122 use only lowercase letters
 // 65 to 90 use only capital letters
 // 48 to 57 use only numbers
-#define START_CHAR 97
+#define START_CHAR 48
 #define END_CHAR 122
 #define MAXIMUM_PASSWORD 20
 
@@ -19,16 +19,17 @@ long long my_pow(long long x, int y);
 int main(int argc, char **argv) {
     char password[MAXIMUM_PASSWORD];
     strcpy(password, argv[1]);
-    time_t t1, t2;
-    double dif;
+    clock_t t1, t2, dif;
 
-    time(&t1);
+    t1 = clock();
     bruteForce(password);
-    time(&t2);
+    t2 = clock();
 
-    dif = difftime(t2, t1);
+    dif = t2 - t1;
 
-    printf("\n%1.2f seconds\n", dif);
+    double time_taken = ((double)dif)/CLOCKS_PER_SEC;
+
+    printf("\n%1.2lf seconds\n", time_taken);
 
     return 0;
 }
